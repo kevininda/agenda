@@ -1,0 +1,85 @@
+<div class="container">
+
+    <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)" mat-align-tabs="center">
+        <mat-tab *ngFor="let tab of tabs; let idx = index" [label]="tab">
+            <ng-container *ngIf="idx == 0">
+                <div class="box" *ngIf="dataUserForm">
+                    <mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
+                    <div class="content-box">
+                        <div class="title">
+                            <h3>Datos Personales</h3>
+                        </div>
+            
+                        <form [formGroup]="dataUserForm">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Email</mat-label>
+                                <input type="email" matInput formControlName="email" required>
+                            </mat-form-field>
+            
+                            <div class="row col-sm-12">
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Nombre</mat-label>
+                                    <input type="text" matInput formControlName="name" required>
+                                </mat-form-field>
+            
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Apellido</mat-label>
+                                    <input type="text" matInput formControlName="lastname" required>
+                                </mat-form-field>
+                            </div>
+            
+            
+                            <ng-container formGroupName="adress">
+                                <div class="row">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Calle</mat-label>
+                                        <input type="text" matInput formControlName="street">
+                                    </mat-form-field>
+            
+                                    <mat-form-field class="sm-width" appearance="outline">
+                                        <mat-label>Num</mat-label>
+                                        <input type="tel" matInput formControlName="num">
+                                    </mat-form-field>
+                                </div>
+            
+                                <div class="row-adress">
+                                    <ng-container formGroupName="province">
+                                        <field-provinces formControlName="nombre" (Output)="getProvince($event)"></field-provinces>
+                                    </ng-container>
+                                    <ng-container formGroupName="departament">
+                                        <field-departament [province]="province" formControlName="nombre"
+                                            (Output)="getDepartament($event)">
+                                        </field-departament>
+                                    </ng-container>
+                                    <ng-container formGroupName="location">
+                                        <field-location [departament]="departament" formControlName="nombre"
+                                            (Output)="getGeoLocation($event)">
+                                        </field-location>
+                                    </ng-container>
+            
+                                </div>
+                            </ng-container>
+                        </form>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div class="footer-btn-remove" *ngIf="idx!=0">
+                <button mat-mini-fab color="accent" (click)="removeSuc(idx)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+
+        </mat-tab>
+    </mat-tab-group>
+
+    <div class="footer-btn">
+        <button mat-stroked-button color="accent" (click)="addSuc()">Agregar nueva sucursal</button>
+        <button mat-stroked-button color="primary" (click)="updateUserData()">Guardar</button>
+    </div>
+
+
+    
+
+
+</div>

@@ -1,0 +1,47 @@
+<div class="container">
+    <ng-container *ngIf="authSvc.user$ | async as user; else noData">
+        <mat-drawer-container class="container" autosize>
+            
+            <mat-toolbar class="toolbar" color="primary">
+                <button mat-icon-button (click)="drawer.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <span>Depilaser</span>
+        
+                <span class="spacer"></span>
+        
+                <div class="user">
+                    Hola {{user.dataUser.name}}!
+                </div>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+            </mat-toolbar>
+    
+            <mat-drawer #drawer class="sidenav" mode="over">
+                <p>Auto-resizing sidenav</p>
+            </mat-drawer>
+    
+            <div class="sidenav-content">
+                <router-outlet></router-outlet>
+            </div>
+    
+        </mat-drawer-container>
+    </ng-container>
+</div>
+
+
+<ng-template #noData>
+    Cargando....
+</ng-template>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="perfil">
+        <mat-icon>sentiment_satisfied_alt</mat-icon>
+        <span>Perfil</span>
+    </button>
+    <button mat-menu-item (click)="logOut()">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar Sesión</span>
+    </button>
+</mat-menu>

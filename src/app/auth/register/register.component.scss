@@ -1,0 +1,60 @@
+.progress {
+    position: absolute;
+    top: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        max-width: 450px;
+        border: 1px solid rgb(191, 191, 191);
+        border-radius: 8px;
+        overflow: hidden;
+
+        @media (max-width: '800px') {
+            margin: 0px !important;
+            width: 100% !important;
+            border: none !important;
+        }
+
+
+        .content-box {
+            margin: 20px;
+
+            .title {
+                display: flex;
+                align-items: center;
+                column-gap: 5px;
+                margin-bottom: 10px;
+
+                h3 { margin: 3px 0px 0px 0px; }
+            }
+
+            .full-width {
+                width: 100%;
+            }
+
+            a {
+                margin-left: 10px;
+                text-decoration: none;
+                color: rgb(46, 117, 240);
+            }
+        }
+
+        .footer-box {
+            display: flex;
+            margin: 70px 20px 20px 20px;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+}

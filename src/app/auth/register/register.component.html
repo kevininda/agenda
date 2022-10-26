@@ -1,0 +1,56 @@
+<mat-progress-bar class="progress" mode="indeterminate" *ngIf="progress"></mat-progress-bar>
+
+<div class="container">
+    <div class="box">
+        <div class="content-box">
+            <div class="title">
+                <button mat-icon-button (click)="location.back()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+                <h3>Crear cuenta</h3>
+            </div>
+            <form [formGroup]="registerForm">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput formControlName="email" required>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input type="text" matInput formControlName="name" required>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Apellido</mat-label>
+                    <input type="text" matInput formControlName="lastname" required>
+                </mat-form-field>
+
+                <ng-container *ngIf="authSvc.user$ | async as user">
+                    <mat-form-field appearance="outline" class="full-width"
+                        *ngIf="authSvc.isSAdmin(user) || authSvc.isAdmin(user)">
+                        <mat-label>Roles</mat-label>
+                        <mat-select formControlName="role">
+                            <mat-option *ngFor="let role of ROLES" [value]="role">
+                                {{role}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+
+            </form>
+        </div>
+        <div class="footer-box">
+            <button mat-button color="primary" (click)="registerUser()"
+                [disabled]="progress || registerForm.invalid">Crear Cuenta</button>
+        </div>
+    </div>
+</div>

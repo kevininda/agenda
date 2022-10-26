@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; box-sizing: border-box; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+a {
+    color: rgb(46, 117, 240) !important;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        color: #3f51b5 !important;
+    }
+    
+    &:active {
+        color: #3f51b5 !important;
+    }
+    
+    &:visited {
+        color: rgb(46, 117, 240) !important;
+    }
+}

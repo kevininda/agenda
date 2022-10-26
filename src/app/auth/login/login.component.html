@@ -1,0 +1,59 @@
+<mat-progress-bar class="progress" mode="indeterminate" *ngIf="progress"></mat-progress-bar>
+<ng-container *ngIf="!loading; else spinner">
+    <div class="container">
+        <div class="box">
+            <div class="content-box">
+                <h1>logo</h1>
+                <div class="title">
+                    <button mat-icon-button (click)="getBack()" *ngIf="resetView">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button>
+                    <h3>{{title}}</h3>
+                </div>
+                <form [formGroup]="loginForm">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput formControlName="email" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="full-width" appearance="outline" *ngIf="!resetView">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                        <button mat-icon-button matSuffix (click)="hide = !hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </form>
+                <a (click)="activeViewReset()" *ngIf="!resetView">Restablecer contraseña</a>
+                <p *ngIf="resetView">Se enviará un correo para restablecer su contraseña.</p>
+            </div>
+
+
+            <ng-container *ngIf="!resetView; else resetViewButtons">
+                <div class="footer-box">
+                    <a routerLink="register">Crear Cuenta</a>
+                    <button mat-flat-button color="primary" (click)="onSubmit()"
+                        [disabled]="progress || loginForm.invalid">Ingresar</button>
+                </div>
+            </ng-container>
+
+            <ng-template #resetViewButtons>
+                <div class="footer-box" [ngStyle]="{'margin': resetView? '0px 20px 20px 20px' : '70px 20px 20px 20px'}">
+                    <div></div>
+                    <button mat-flat-button color="primary" (click)="resetPass()"
+                    [disabled]="progress || email?.invalid">Restablecer</button>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="errors">
+            {{errorMjs}}
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #spinner>
+    <div class="container">
+        <mat-spinner diameter="40"></mat-spinner>
+    </div>
+</ng-template>
